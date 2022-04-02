@@ -5,7 +5,7 @@ extends KinematicBody2D
 # var a = 2
 # var b = "text"
 
-export var speed = 250; # example
+export var force := 30; # example
 export var cam_towards_mouse := 0.25;
 export var drag := 0.1;
 
@@ -36,18 +36,30 @@ func _physics_process(delta):
 	# make diagonals same 'distance' as straights
 	dir = dir.normalized();
 	
-	#var acceleration := dir * 
+	var acceleration := dir * force;
 	
-	move_and_slide(dir * speed);
+	velocity += acceleration;
+	velocity -= drag * velocity;
+	
+	move_and_slide(velocity);
 	
 	_move_camera();
 	
 	
 func _move_camera():
 	
-	var viewport = get_viewport()
-	var mouse_point = viewport.get_mouse_position() - viewport.get_visible_rect().size / 2
+	var viewport := get_viewport()
+	var mouse_point := viewport.get_mouse_position() - viewport.get_visible_rect().size / 2
 	
-	cam_pos.transform = Transform2D(0, mouse_point * cam_towards_mouse);
+	rotation = Vector2(1, 0).angle_to(mouse_point)
 	
+	var cam_dest := global_position + mouse_point * cam_towards_mouse;
 	
+	var space_state = get_world_2d().direct_space_state
+	# use global coordinates, not local to node
+	var result = space_state.intersect_ray(global_position, cam_dest)
+	
+	if result:
+		cam_dest = result.position
+	
+	cam_pos.global_transform = Transform2D(0, cam_dest)
