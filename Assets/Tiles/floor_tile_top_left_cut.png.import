@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/floor_tile.png-87137719fcbae5712e240d2091850650.stex"
+path="res://.import/floor_tile_top_left_cut.png-da60f5ac1c9dabc08dfd6a0764bc989a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/floor_tile.png"
-dest_files=[ "res://.import/floor_tile.png-87137719fcbae5712e240d2091850650.stex" ]
+source_file="res://Assets/Tiles/floor_tile_top_left_cut.png"
+dest_files=[ "res://.import/floor_tile_top_left_cut.png-da60f5ac1c9dabc08dfd6a0764bc989a.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

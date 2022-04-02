@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/floor_tile_top_left_cut_2.png-8a04da4ac95b44bfa82b8f3017c97c40.stex"
+path="res://.import/sink.png-e3792bd1db53103ed8ac560b7f261808.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/floor_tile_top_left_cut_2.png"
-dest_files=[ "res://.import/floor_tile_top_left_cut_2.png-8a04da4ac95b44bfa82b8f3017c97c40.stex" ]
+source_file="res://Assets/sink.png"
+dest_files=[ "res://.import/sink.png-e3792bd1db53103ed8ac560b7f261808.stex" ]
 
 [params]
 

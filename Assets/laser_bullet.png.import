@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/floor_tile_top_left_dot.png-1f3fdcadd404f1c422acd008199b753f.stex"
+path="res://.import/laser_bullet.png-1a493cd1b8f45372ca0b42108746cdce.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/floor_tile_top_left_dot.png"
-dest_files=[ "res://.import/floor_tile_top_left_dot.png-1f3fdcadd404f1c422acd008199b753f.stex" ]
+source_file="res://Assets/laser_bullet.png"
+dest_files=[ "res://.import/laser_bullet.png-1a493cd1b8f45372ca0b42108746cdce.stex" ]
 
 [params]
 

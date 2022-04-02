@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/clear_tile.png-8b696425a4984d965391918bc86b1faf.stex"
+path="res://.import/Alien2SpriteSheet.png-5d0cc737c8f4f2058509278d84e60ea6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/clear_tile.png"
-dest_files=[ "res://.import/clear_tile.png-8b696425a4984d965391918bc86b1faf.stex" ]
+source_file="res://Assets/Alien2SpriteSheet.png"
+dest_files=[ "res://.import/Alien2SpriteSheet.png-5d0cc737c8f4f2058509278d84e60ea6.stex" ]
 
 [params]
 
