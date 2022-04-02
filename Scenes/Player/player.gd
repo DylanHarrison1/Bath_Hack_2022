@@ -32,11 +32,13 @@ func _physics_process(delta):
 		dir += Vector2(-1, 0);
 	if Input.is_action_pressed("move_right"):
 		dir += Vector2(1, 0);
+	if Input.is_action_pressed("fire"):
+		$BaseWeapon.fire()
 			
 	# make diagonals same 'distance' as straights
 	dir = dir.normalized();
 	if dir != Vector2.ZERO:
-		$AnimationPlayer.play("Walk_Right");
+		$AnimationPlayer.play("Walk_Down");
 	
 	var acceleration := dir * force;
 	
@@ -66,8 +68,13 @@ func _move_camera():
 	
 	cam_pos.global_transform = Transform2D(0, cam_dest)
 
+
+
 func _unhandled_input(event):
 	
 	if event.is_action_pressed("ui_accept"):
 		damage(10);
 		print_debug("Hurt for 10!")
+	
+	if event.is_action_pressed("teleport"):
+		global_position = get_global_mouse_position()

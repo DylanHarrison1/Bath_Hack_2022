@@ -11,3 +11,6 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 
 [node name="bulletcontainer" type="Node" parent="."]
+
+[node name="bullet_spawn" type="Position2D" parent="."]
+position = Vector2( 22, 0 )

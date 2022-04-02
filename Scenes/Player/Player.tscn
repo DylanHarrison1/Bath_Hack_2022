@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/PlayerSpriteSheet.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player/player.gd" type="Script" id=2]
 [ext_resource path="res://Assets/light cast.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/BaseWeapon/BaseWeapon.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15, 15 )
@@ -78,8 +79,12 @@ tracks/0/keys = {
 script = ExtResource( 2 )
 cam_towards_mouse = 0.15
 
+[node name="BaseWeapon" parent="." instance=ExtResource( 4 )]
+position = Vector2( 18, 0 )
+
 [node name="sprite" type="Sprite" parent="."]
 light_mask = 0
+rotation = -1.5708
 texture = ExtResource( 1 )
 hframes = 8
 vframes = 4
