@@ -10,7 +10,8 @@
 [node name="Level" parent="." instance=ExtResource( 2 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 445, 196 )
+position = Vector2( 170, 171 )
+speed = 400
 
 [node name="BaseEnemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 101, 54 )
