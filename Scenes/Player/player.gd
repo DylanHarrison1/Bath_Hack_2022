@@ -8,6 +8,10 @@ extends "../Being/being.gd"
 export var cam_towards_mouse := 0.25;
 onready var cam_pos = $cam_pos;
 
+export(NodePath) var gun_path
+onready var gun := get_node(gun_path)
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -31,7 +35,8 @@ func _physics_process(delta):
 	apply_force(force)
 	
 	if Input.is_action_pressed("fire"):
-		$BaseWeapon.fire()
+		if gun:
+			gun.try_fire()
 			
 	_move_camera();
 	

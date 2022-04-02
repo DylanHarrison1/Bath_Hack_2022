@@ -10,6 +10,7 @@
 script = ExtResource( 5 )
 
 [node name="Level" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, -1 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 170, 171 )

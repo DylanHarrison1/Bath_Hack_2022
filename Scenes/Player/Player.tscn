@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/PlayerSpriteSheet.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player/player.gd" type="Script" id=2]
 [ext_resource path="res://Assets/light cast.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/BaseWeapon/BaseWeapon.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Weapons/Lasergun.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15, 15 )
@@ -78,9 +78,7 @@ tracks/0/keys = {
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
 cam_towards_mouse = 0.15
-
-[node name="BaseWeapon" parent="." instance=ExtResource( 4 )]
-position = Vector2( 18, 0 )
+gun_path = NodePath("Lasergun")
 
 [node name="sprite" type="Sprite" parent="."]
 light_mask = 0
@@ -112,10 +110,12 @@ texture = ExtResource( 3 )
 texture_scale = 5.0
 mode = 3
 shadow_enabled = true
-shadow_color = Color( 0.188235, 0.188235, 0.188235, 1 )
+shadow_color = Color( 0.0823529, 0.0823529, 0.0823529, 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Walk_Down = SubResource( 4 )
 anims/Walk_Left = SubResource( 5 )
 anims/Walk_Right = SubResource( 6 )
 anims/Walk_Up = SubResource( 3 )
+
+[node name="Lasergun" parent="." instance=ExtResource( 4 )]
