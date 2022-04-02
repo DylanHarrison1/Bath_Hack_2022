@@ -20,7 +20,6 @@ func _ready():
 
 # handle movement here
 func _physics_process(delta):
-	
 	var dir := Vector2.ZERO;
 	
 	# handle movement cases
