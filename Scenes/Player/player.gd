@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends "../Being/being.gd"
 
 
 # Declare member variables here. Examples:
@@ -35,6 +35,8 @@ func _physics_process(delta):
 			
 	# make diagonals same 'distance' as straights
 	dir = dir.normalized();
+	if dir != Vector2.ZERO:
+		$AnimationPlayer.play("Walk_Right");
 	
 	var acceleration := dir * force;
 	
@@ -63,3 +65,9 @@ func _move_camera():
 		cam_dest = result.position
 	
 	cam_pos.global_transform = Transform2D(0, cam_dest)
+
+func _unhandled_input(event):
+	
+	if event.is_action_pressed("ui_accept"):
+		damage(10);
+		print_debug("Hurt for 10!")
