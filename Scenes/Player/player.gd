@@ -5,13 +5,8 @@ extends "../Being/being.gd"
 # var a = 2
 # var b = "text"
 
-export var force := 30; # example
 export var cam_towards_mouse := 0.25;
-export var drag := 0.1;
-
 onready var cam_pos = $cam_pos;
-
-var velocity := Vector2.ZERO;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,32 +15,24 @@ func _ready():
 
 # handle movement here
 func _physics_process(delta):
-	var dir := Vector2.ZERO;
+	var force := Vector2.ZERO;
 	
 	# handle movement cases
 	if Input.is_action_pressed("move_up"):
-		dir += Vector2(0, -1);	
+		force += Vector2(0, -1);	
 	if Input.is_action_pressed("move_down"):
-		dir += Vector2(0, 1);
+		force += Vector2(0, 1);
 	if Input.is_action_pressed("move_left"):
-		dir += Vector2(-1, 0);
+		force += Vector2(-1, 0);
 	if Input.is_action_pressed("move_right"):
-		dir += Vector2(1, 0);
+		force += Vector2(1, 0);
+	
+	force = force.normalized();
+	apply_force(force)
+	
 	if Input.is_action_pressed("fire"):
 		$BaseWeapon.fire()
 			
-	# make diagonals same 'distance' as straights
-	dir = dir.normalized();
-	if dir != Vector2.ZERO:
-		$AnimationPlayer.play("Walk_Down");
-	
-	var acceleration := dir * force;
-	
-	velocity += acceleration;
-	velocity -= drag * velocity;
-	
-	move_and_slide(velocity);
-	
 	_move_camera();
 	
 	

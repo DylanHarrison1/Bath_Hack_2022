@@ -7,7 +7,7 @@ extends Node2D
 
 var time_alive := 0.0;
 var death_time := 5.0;
-var damage := 1;
+var damage := 2;
 var speed := 10;
 
 
