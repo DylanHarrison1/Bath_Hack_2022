@@ -24,6 +24,9 @@ func try_fire():
 	if last_shot_time > fire_rate:
 		var bullet_instance = bullet.instance()
 
+		if "alien_guns" in get_groups():
+			bullet_instance.get_node("sprite").texture = load("res://Assets/laser_bullet.png")
+
 		bullet_instance.damage = damage
 		bullet_instance.speed = bullet_speed
 		

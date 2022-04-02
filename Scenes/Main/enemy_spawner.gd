@@ -9,7 +9,7 @@ export var enemy_num = 5;
 export (NodePath) var player_path;
 onready var player = get_node(player_path)
 
-var enemy := preload("../Enemies/Graze.tscn")
+var enemy := preload("../Enemies/Gobster.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

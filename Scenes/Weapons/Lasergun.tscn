@@ -3,11 +3,11 @@
 [ext_resource path="res://Assets/laser.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/BaseWeapon/BaseWeapon.tscn" type="PackedScene" id=2]
 
-[node name="Lasergun" instance=ExtResource( 2 )]
-bullet_speed = 15
+[node name="Lasergun" groups=["alien_guns"] instance=ExtResource( 2 )]
+bullet_speed = 13
 shake_factor = 0.5
-damage = 10
-fire_rate = 0.5
+damage = 20
+fire_rate = 1.0
 
 [node name="sprite" parent="." index="0"]
 position = Vector2( 17, 1 )

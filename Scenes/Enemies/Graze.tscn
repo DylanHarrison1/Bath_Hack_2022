@@ -7,5 +7,3 @@
 
 [node name="sprite" parent="." index="0"]
 texture = ExtResource( 2 )
-
-[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
