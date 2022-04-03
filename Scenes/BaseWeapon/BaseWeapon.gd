@@ -14,7 +14,6 @@ var last_shot_time := 0.0
 var bullet = preload("res://Scenes//Bullet//Bullet.tscn")
 var rng := RandomNumberGenerator.new()
 
-
 func _process(delta):
 	last_shot_time += delta
 
@@ -26,7 +25,7 @@ func try_fire():
 
 		if "alien_guns" in get_groups():
 			bullet_instance.get_node("sprite").texture = load("res://Assets/laser_bullet.png")
-
+		
 		bullet_instance.damage = damage
 		bullet_instance.speed = bullet_speed
 		
@@ -39,6 +38,9 @@ func try_fire():
 		$bullet_container.add_child(bullet_instance)
 		
 		last_shot_time = 0.0
+		if (not $Audio.is_playing()):
+			$Audio.play()
+			
 		return damage
 	
 	return false
