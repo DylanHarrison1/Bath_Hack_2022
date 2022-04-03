@@ -8,15 +8,16 @@ extends "../Being/being.gd"
 export var force := 30; # example
 export var cam_towards_mouse := 0.25;
 export var drag := 0.1;
-
+var canTeleport = true;
+onready var timer = get_node("Timer");
 onready var cam_pos = $cam_pos;
 
 var velocity := Vector2.ZERO;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	# Replace with function body.
+	pass
 
 # handle movement here
 func _physics_process(delta):
@@ -58,7 +59,6 @@ func _move_camera():
 	rotation = Vector2(1, 0).angle_to(mouse_point)
 	
 	var cam_dest := global_position + mouse_point * cam_towards_mouse;
-	
 	var space_state = get_world_2d().direct_space_state
 	# use global coordinates, not local to node
 	var result = space_state.intersect_ray(global_position, cam_dest)
@@ -76,5 +76,19 @@ func _unhandled_input(event):
 		damage(10);
 		print_debug("Hurt for 10!")
 	
-	if event.is_action_pressed("teleport"):
-		global_position = get_global_mouse_position()
+	if event.is_action_pressed("teleport") and canTeleport:
+		#if Timer.TIMER_PROCESS_IDLE():
+		#SceneTreeTimer.CONNECT_ONESHOT()
+		#var t = Timer.new()
+		#t.set_wait_time(10)
+		#add_child(t)
+		#get_tree().create_timer(1000)
+			global_position = get_global_mouse_position()
+			
+			timer.set_wait_time(10)
+			timer.start()
+			canTeleport = false;
+
+
+func _on_Timer_timeout():
+	canTeleport = true;
