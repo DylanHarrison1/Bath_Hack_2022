@@ -37,14 +37,17 @@ func _physics_process(delta):
 	force = force.normalized();
 	apply_force(force)
 	
+	var damage = 0
 	if Input.is_action_pressed("fire"):
 		if gun:
-			gun.try_fire()
+			var damaged = gun.try_fire()
+			if damaged:
+				damage = damaged
 			
-	_move_camera();
+	_move_camera(damage);
 	
 	
-func _move_camera():
+func _move_camera(damage):
 	
 	var viewport := get_viewport()
 	var mouse_point := viewport.get_mouse_position() - viewport.get_visible_rect().size / 2
@@ -60,6 +63,11 @@ func _move_camera():
 		cam_dest = result.position
 	
 	cam_pos.global_transform = Transform2D(0, cam_dest)
+	
+	cam_pos.get_node("camera").set_offset(Vector2( \
+		rand_range(-1.0, 1.0) * damage, \
+		rand_range(-1.0, 1.0) * damage \
+	))
 
 
 

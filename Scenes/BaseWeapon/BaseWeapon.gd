@@ -39,3 +39,6 @@ func try_fire():
 		$bullet_container.add_child(bullet_instance)
 		
 		last_shot_time = 0.0
+		return damage
+	
+	return false
