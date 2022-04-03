@@ -7,13 +7,14 @@ extends Node2D
 
 var time_alive := 0.0;
 var death_time := 5.0;
-var damage := 1;
-var speed := 10;
+var damage = 5;
+var speed = 10;
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,6 +32,7 @@ func _physics_process(delta):
 	
 
 func _on_hitbox_body_entered(body):
+	
 	if body.has_method("damage"):
 		body.damage(damage)
 	

@@ -1,29 +1,30 @@
 extends "../Being/being.gd"
 
-export var speed = 200
+var player
 
-var velocity = Vector2.ZERO
-var path = []
-var threshold = 16
-var nav = null
+
+export var damage = 10;
+
 
 func _ready():
-	yield(owner, "ready")
-	nav = owner.nav
+	pass
 	
 # warning-ignore:unused_argument
 func _physics_process(delta):
-	if path.size() > 0:
-		move_to_target()
-		
-func move_to_target():
-	if global_position.distance_to(path[0]) < threshold:
-		path.remove(0)
-	else:
-		var direction = global_position.direction_to(path[0])
-		velocity = direction * speed
-		velocity = move_and_slide(velocity)
-		
-func get_target_path(target_pos):
-	path = nav.get_simple_path(global_position, target_pos, false)
+	
+	var force = player.global_position - global_position
+	force = force.normalized()
+	
+	rotation = Vector2(1, 0).angle_to(force)
+	
+	apply_force(force)
+	
+	
 
+
+
+
+func _on_hitbox_body_entered(body):
+	if body.is_in_group("player"):
+		print("hurt")
+		body.damage(damage)
