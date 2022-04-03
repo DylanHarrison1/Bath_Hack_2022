@@ -10,7 +10,7 @@ onready var cam_pos = $cam_pos;
 
 export(NodePath) var gun_path
 onready var gun := get_node(gun_path)
-
+var teleport_time = OS.get_unix_time()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -76,4 +76,13 @@ func _unhandled_input(event):
 		print_debug("Hurt for 10!")
 	
 	if event.is_action_pressed("teleport"):
-		global_position = get_global_mouse_position()
+		if ((OS.get_unix_time() - teleport_time) < 2):
+			return 
+		var floor_tiles = get_parent().get_node("Level").get_node("floor_tile")
+		var wall_tiles = get_parent().get_node("Level").get_node("wall_tiles")
+		var position = floor_tiles.world_to_map(get_global_mouse_position())
+		
+		if (floor_tiles.get_cellv(position) != -1 and wall_tiles.get_cellv(position) != 0):
+			global_position = get_global_mouse_position() 
+			teleport_time = OS.get_unix_time()
+
