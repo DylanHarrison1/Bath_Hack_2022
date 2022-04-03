@@ -11,13 +11,14 @@ config_version=4
 [application]
 
 config/name="Bath_Hack"
-run/main_scene="res://Scenes/Main/Main.tscn"
+run/main_scene="res://Scenes/Menu/Title.tscn"
 config/icon="res://Assets/icon.png"
 
 [global]
 
 vcs=false
 version=false
+default=false
 
 [input]
 

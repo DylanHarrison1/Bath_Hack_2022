@@ -47,3 +47,7 @@ margin_bottom = 32.0
 value = 100.0
 script = ExtResource( 6 )
 target_path = NodePath("../../Player")
+
+[connection signal="game_over" from="Player" to="enemy_spawner" method="_on_Player_game_over"]
+[connection signal="game_over" from="Player" to="Player" method="_on_Player_game_over"]
+[connection signal="game_over" from="Player" to="CanvasLayer/TextureProgress" method="_on_Player_game_over"]

@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
 
+signal game_over
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -31,4 +33,8 @@ func damage(damage):
 		_die()
 
 func _die():
+	if 'player' in get_groups():
+		emit_signal("game_over")
+		return
+	
 	queue_free()

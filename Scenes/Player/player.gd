@@ -11,6 +11,8 @@ onready var cam_pos = $cam_pos;
 export(NodePath) var gun_path
 onready var gun := get_node(gun_path)
 
+var dead := false
+var dead_timer = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,29 +21,42 @@ func _ready():
 
 # handle movement here
 func _physics_process(delta):
-	var force := Vector2.ZERO;
-	
-	# handle movement cases
-	if Input.is_action_pressed("move_up"):
-		force += Vector2(0, -1);	
-	if Input.is_action_pressed("move_down"):
-		force += Vector2(0, 1);
-	if Input.is_action_pressed("move_left"):
-		force += Vector2(-1, 0);
-	if Input.is_action_pressed("move_right"):
-		force += Vector2(1, 0);
-	
-	force = force.normalized();
-	apply_force(force)
-	
-	var damage = 0
-	if Input.is_action_pressed("fire"):
-		if gun:
-			var damaged = gun.try_fire()
-			if damaged:
-				damage = damaged
-			
-	_move_camera(damage);
+	if not dead:
+		var force := Vector2.ZERO;
+		
+		# handle movement cases
+		if Input.is_action_pressed("move_up"):
+			force += Vector2(0, -1);	
+		if Input.is_action_pressed("move_down"):
+			force += Vector2(0, 1);
+		if Input.is_action_pressed("move_left"):
+			force += Vector2(-1, 0);
+		if Input.is_action_pressed("move_right"):
+			force += Vector2(1, 0);
+		
+		force = force.normalized();
+		apply_force(force)
+		
+		var damage = 0
+		if Input.is_action_pressed("fire"):
+			if gun:
+				var damaged = gun.try_fire()
+				if damaged:
+					damage = damaged
+				
+		_move_camera(damage);
+		
+	else:
+		dead_timer += delta
+		if dead_timer > 5:
+			get_tree().change_scene("res://Scenes/Menu/Title.tscn")
+		
+		$cam_pos/camera.zoom += Vector2.ONE * delta / 5
+		
+		cam_pos.get_node("camera").set_offset(Vector2( \
+		rand_range(-1.0, 1.0) * 5, \
+		rand_range(-1.0, 1.0) * 5 \
+	))
 	
 	
 func _move_camera(damage):
@@ -62,18 +77,20 @@ func _move_camera(damage):
 	
 	cam_pos.global_transform = Transform2D(0, cam_dest)
 	
-	cam_pos.get_node("camera").set_offset(Vector2( \
-		rand_range(-1.0, 1.0) * damage, \
-		rand_range(-1.0, 1.0) * damage \
-	))
+
 
 
 
 func _unhandled_input(event):
 	
-	if event.is_action_pressed("ui_accept"):
-		damage(10);
-		print_debug("Hurt for 10!")
-	
-	if event.is_action_pressed("teleport"):
-		global_position = get_global_mouse_position()
+	if not dead:
+		if event.is_action_pressed("ui_accept"):
+			damage(10);
+			print_debug("Hurt for 10!")
+		
+		if event.is_action_pressed("teleport"):
+			global_position = get_global_mouse_position()
+
+
+func _on_Player_game_over():
+	dead = true
