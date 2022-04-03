@@ -5,18 +5,41 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-export var enemy_num = 5;
+export var enemy_num = 5
+export var wait_range = Vector2(1, 5)
+
 export (NodePath) var player_path;
 onready var player = get_node(player_path)
 
-var enemy := preload("../Enemies/Gobster.tscn")
+
+var wait_time = rand_range(wait_range.x, wait_range.y)
+var enemies := [preload("../Enemies/Gobster.tscn"), preload("../Enemies/Grazer.tscn")]
+
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	for i in enemy_num:
-		var enemy_inst = enemy.instance()
-		enemy_inst.player = player
-		enemy_inst.position += Vector2.ONE * (randi() % 1000) / 1000
-		add_child(enemy_inst)
+func _process(delta):
+	wait_time -= delta
+	if wait_time < 0:
+		#spawn code
+		
+		var pos := Vector2.ZERO
+		while true:
+			var dir := Vector2(1, 0).rotated(rand_range(-PI, PI))
+			dir = dir.normalized()
+			pos = global_position + dir * get_viewport().size.x * 0.6
+			var physics = get_world_2d().get_direct_space_state()
+			var points = physics.intersect_point(pos, 1)
+			if not points:
+				break
+		
+		var new_enemy = rand_from_list(enemies).instance()
+		new_enemy.player = player
+		new_enemy.global_position = pos
+		add_child(new_enemy)
+		
+		wait_time = rand_range(wait_range.x, wait_range.y)
+		
 
 
+func rand_from_list(list):
+	return list[randi() % len(list)]
