@@ -27,7 +27,7 @@ player_path = NodePath("../Player")
 level_path = NodePath("../Level")
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource( 1 )]
-position = Vector2( -536, 78 )
+position = Vector2( -506, 87 )
 scale = Vector2( 1.2, 1.2 )
 speed = 30
 
