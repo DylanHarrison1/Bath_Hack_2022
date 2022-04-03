@@ -11,6 +11,10 @@ export var wait_range = Vector2(1, 5)
 export (NodePath) var player_path;
 onready var player = get_node(player_path)
 
+export (NodePath) var level_path;
+onready var floor_map = get_node(level_path).get_node("floor_tile")
+onready var wall_map = get_node(level_path).get_node("wall_tiles")
+
 
 var wait_time = rand_range(wait_range.x, wait_range.y)
 var enemies := [preload("../Enemies/Gobster.tscn"), preload("../Enemies/Grazer.tscn")]
@@ -26,10 +30,12 @@ func _process(delta):
 		while true:
 			var dir := Vector2(1, 0).rotated(rand_range(-PI, PI))
 			dir = dir.normalized()
-			pos = global_position + dir * get_viewport().size.x * 0.6
-			var physics = get_world_2d().get_direct_space_state()
-			var points = physics.intersect_point(pos, 1)
-			if not points:
+			pos = player.global_position + dir * get_viewport().size.x * 0.6
+			
+			var tile_pos = floor_map.world_to_map(pos - floor_map.global_position)
+			
+			if (floor_map.get_cellv(tile_pos) != floor_map.INVALID_CELL and
+			wall_map.get_cellv(tile_pos) == wall_map.INVALID_CELL):
 				break
 		
 		var new_enemy = rand_from_list(enemies).instance()

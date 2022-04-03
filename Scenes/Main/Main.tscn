@@ -24,9 +24,10 @@ energy = 7.45
 position = Vector2( 273, 26 )
 script = ExtResource( 3 )
 player_path = NodePath("../Player")
+level_path = NodePath("../Level")
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource( 1 )]
-position = Vector2( 146, 167 )
+position = Vector2( -536, 78 )
 scale = Vector2( 1.2, 1.2 )
 speed = 30
 
