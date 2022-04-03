@@ -27,7 +27,7 @@ func apply_force(force):
 
 func damage(damage):
 	health -= damage
-	if health < 0:
+	if health <= 0:
 		_die()
 
 func _die():
