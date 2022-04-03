@@ -10,7 +10,7 @@ export var frequency = 1
 func _ready():
 	pass
 	
-	
+	 
 func _process(delta):
 	if hit_timer > -1:
 		hit_timer -= delta
@@ -28,7 +28,7 @@ func _physics_process(delta):
 	force = force.normalized()
 	
 	rotation = Vector2(1, 0).angle_to(force)
-	
+	$AnimationPlayer.play("Walk")
 	apply_force(force)
 	
 	

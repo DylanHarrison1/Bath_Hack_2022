@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/AlienSpriteSheet.png-f8b001164aeb236d239c720f69f78142.stex"
+path="res://.import/cool_skull.png-ae1fa7115d2194fe0c2b6d1759a5124d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/AlienSpriteSheet.png"
-dest_files=[ "res://.import/AlienSpriteSheet.png-f8b001164aeb236d239c720f69f78142.stex" ]
+source_file="res://Assets/cool_skull.png"
+dest_files=[ "res://.import/cool_skull.png-ae1fa7115d2194fe0c2b6d1759a5124d.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

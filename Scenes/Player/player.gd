@@ -8,6 +8,9 @@ extends "../Being/being.gd"
 export var cam_towards_mouse := 0.25;
 onready var cam_pos = $cam_pos;
 
+var dead := false
+var dead_timer = 0;
+
 export(NodePath) var gun_path
 onready var gun := get_node(gun_path)
 var teleport_time = OS.get_unix_time()
@@ -19,29 +22,42 @@ func _ready():
 
 # handle movement here
 func _physics_process(delta):
-	var force := Vector2.ZERO;
-	
-	# handle movement cases
-	if Input.is_action_pressed("move_up"):
-		force += Vector2(0, -1);	
-	if Input.is_action_pressed("move_down"):
-		force += Vector2(0, 1);
-	if Input.is_action_pressed("move_left"):
-		force += Vector2(-1, 0);
-	if Input.is_action_pressed("move_right"):
-		force += Vector2(1, 0);
-	
-	force = force.normalized();
-	apply_force(force)
-	
-	var damage = 0
-	if Input.is_action_pressed("fire"):
-		if gun:
-			var damaged = gun.try_fire()
-			if damaged:
-				damage = damaged
-			
-	_move_camera(damage);
+	if not dead:
+		var force := Vector2.ZERO;
+
+		# handle movement cases
+		if Input.is_action_pressed("move_up"):
+			force += Vector2(0, -1);	
+		if Input.is_action_pressed("move_down"):
+			force += Vector2(0, 1);
+		if Input.is_action_pressed("move_left"):
+			force += Vector2(-1, 0);
+		if Input.is_action_pressed("move_right"):
+			force += Vector2(1, 0);
+		$AnimationPlayer.play("Walk_Down")
+		force = force.normalized();
+		apply_force(force)
+		
+		var damage = 0
+		if Input.is_action_pressed("fire"):
+			if gun:
+				var damaged = gun.try_fire()
+				if damaged:
+					damage = damaged
+
+		_move_camera(damage);
+
+	else:
+		dead_timer += delta
+		if dead_timer > 5:
+			get_tree().change_scene("res://Scenes/Menu/Title.tscn")
+
+		$cam_pos/camera.zoom += Vector2.ONE * delta / 5
+
+		cam_pos.get_node("camera").set_offset(Vector2( \
+		rand_range(-1.0, 1.0) * 5, \
+		rand_range(-1.0, 1.0) * 5 \
+	))
 	
 	
 func _move_camera(damage):
@@ -62,27 +78,24 @@ func _move_camera(damage):
 	
 	cam_pos.global_transform = Transform2D(0, cam_dest)
 	
-	cam_pos.get_node("camera").set_offset(Vector2( \
-		rand_range(-1.0, 1.0) * damage, \
-		rand_range(-1.0, 1.0) * damage \
-	))
-
 
 
 func _unhandled_input(event):
-	
-	if event.is_action_pressed("ui_accept"):
-		damage(10);
-		print_debug("Hurt for 10!")
-	
-	if event.is_action_pressed("teleport"):
-		if ((OS.get_unix_time() - teleport_time) < 2):
-			return 
-		var floor_tiles = get_parent().get_node("Level").get_node("floor_tile")
-		var wall_tiles = get_parent().get_node("Level").get_node("wall_tiles")
-		var position = floor_tiles.world_to_map(get_global_mouse_position())
+	if not dead:
+		if event.is_action_pressed("ui_accept"):
+			damage(10);
+			print_debug("Hurt for 10!")
 		
-		if (floor_tiles.get_cellv(position) != -1 and wall_tiles.get_cellv(position) != 0):
-			global_position = get_global_mouse_position() 
-			teleport_time = OS.get_unix_time()
+		if event.is_action_pressed("teleport"):
+			if ((OS.get_unix_time() - teleport_time) < 2):
+				return 
+			var floor_tiles = get_parent().get_node("Level").get_node("floor_tile")
+			var wall_tiles = get_parent().get_node("Level").get_node("wall_tiles")
+			var position = floor_tiles.world_to_map(get_global_mouse_position())
+			
+			if (floor_tiles.get_cellv(position) != -1 and wall_tiles.get_cellv(position) != 0):
+				global_position = get_global_mouse_position() 
+				teleport_time = OS.get_unix_time()
 
+func _on_Player_game_over():
+	dead = true

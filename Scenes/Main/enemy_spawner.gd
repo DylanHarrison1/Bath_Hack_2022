@@ -49,3 +49,9 @@ func _process(delta):
 
 func rand_from_list(list):
 	return list[randi() % len(list)]
+
+
+func _on_Player_game_over():
+	for child in get_children():
+		child.queue_free()
+	queue_free()
