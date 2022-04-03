@@ -15,8 +15,11 @@ export(NodePath) var gun_path
 onready var gun := get_node(gun_path)
 var teleport_time = OS.get_unix_time()
 
+var gun_item = preload("res://Scenes/GunItem/GunItem.tscn") 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	pass # Replace with function body.
 
 
@@ -52,7 +55,7 @@ func _physics_process(delta):
 		if dead_timer > 5:
 			get_tree().change_scene("res://Scenes/Menu/Title.tscn")
 
-		$cam_pos/camera.zoom += Vector2.ONE * delta / 5
+		$cam_pos/camera.zoom += Vector2.ONE * delta / 10
 
 		cam_pos.get_node("camera").set_offset(Vector2( \
 		rand_range(-1.0, 1.0) * 5, \
@@ -85,6 +88,28 @@ func _unhandled_input(event):
 		if event.is_action_pressed("ui_accept"):
 			damage(10);
 			print_debug("Hurt for 10!")
+			
+			
+		if event.is_action_pressed("pickup"):
+			for area in $hitbox.get_overlapping_areas():
+				if "pickup" in area.get_groups():
+					
+					
+					var packed_gun = PackedScene.new()
+					packed_gun.pack(gun)
+					var itemInst = gun_item.instance()
+					itemInst.gun = packed_gun
+					itemInst.global_position = global_position
+					get_parent().add_child(itemInst)
+					
+					gun.queue_free()
+					var gun_inst = area.pick_up()
+					add_child(gun_inst)
+					gun = gun_inst
+					
+					
+					
+			
 		
 		if event.is_action_pressed("teleport"):
 			if ((OS.get_unix_time() - teleport_time) < 2):
@@ -99,3 +124,4 @@ func _unhandled_input(event):
 
 func _on_Player_game_over():
 	dead = true
+

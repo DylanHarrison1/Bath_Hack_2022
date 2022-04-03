@@ -17,3 +17,5 @@ texture = ExtResource( 2 )
 position = Vector2( 22, 0 )
 
 [node name="bullet_container" type="Node" parent="."]
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]

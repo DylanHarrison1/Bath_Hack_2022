@@ -22,6 +22,8 @@ tracks/0/keys = {
 
 [node name="Grazer" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+speed = 10
+damage = 20
 
 [node name="sprite" parent="." index="0"]
 texture = ExtResource( 3 )

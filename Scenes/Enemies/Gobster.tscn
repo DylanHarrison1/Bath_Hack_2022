@@ -25,6 +25,7 @@ tracks/0/keys = {
 
 [node name="BaseEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 5 )
+damage = 40
 
 [node name="sprite" parent="." index="0"]
 texture = ExtResource( 2 )
