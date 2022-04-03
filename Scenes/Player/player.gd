@@ -107,10 +107,7 @@ func _unhandled_input(event):
 					add_child(gun_inst)
 					gun = gun_inst
 					
-					
-					
-			
-		
+
 		if event.is_action_pressed("teleport"):
 			if ((OS.get_unix_time() - teleport_time) < 2):
 				return 
@@ -122,6 +119,16 @@ func _unhandled_input(event):
 				global_position = get_global_mouse_position() 
 				teleport_time = OS.get_unix_time()
 
+		if event.is_action_pressed("hook"):
+			var mouse_pos = get_global_mouse_position()
+			var space_state = get_world_2d().direct_space_state
+			var result = space_state.intersect_ray(global_position, 100*(get_global_mouse_position()-global_position)) 
+			var target = result.position
+			# look_at(target)
+			if (global_position.distance_to(target) < 250):
+				velocity = position.direction_to(target) * 2000
+				move_and_slide(velocity)
+				
 func _on_Player_game_over():
 	dead = true
 
