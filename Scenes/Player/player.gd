@@ -10,9 +10,13 @@ onready var cam_pos = $cam_pos;
 
 export(NodePath) var gun_path
 onready var gun := get_node(gun_path)
+<<<<<<< HEAD
 
 var dead := false
 var dead_timer = 0;
+=======
+var teleport_time = OS.get_unix_time()
+>>>>>>> 36cc893c4c2aa8b658c008e2e8f198bcc2f7886c
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -83,6 +87,7 @@ func _move_camera(damage):
 
 func _unhandled_input(event):
 	
+<<<<<<< HEAD
 	if not dead:
 		if event.is_action_pressed("ui_accept"):
 			damage(10);
@@ -94,3 +99,20 @@ func _unhandled_input(event):
 
 func _on_Player_game_over():
 	dead = true
+=======
+	if event.is_action_pressed("ui_accept"):
+		damage(10);
+		print_debug("Hurt for 10!")
+	
+	if event.is_action_pressed("teleport"):
+		if ((OS.get_unix_time() - teleport_time) < 2):
+			return 
+		var floor_tiles = get_parent().get_node("Level").get_node("floor_tile")
+		var wall_tiles = get_parent().get_node("Level").get_node("wall_tiles")
+		var position = floor_tiles.world_to_map(get_global_mouse_position())
+		
+		if (floor_tiles.get_cellv(position) != -1 and wall_tiles.get_cellv(position) != 0):
+			global_position = get_global_mouse_position() 
+			teleport_time = OS.get_unix_time()
+
+>>>>>>> 36cc893c4c2aa8b658c008e2e8f198bcc2f7886c

@@ -102,7 +102,10 @@ shape = SubResource( 2 )
 
 [node name="camera" type="Camera2D" parent="cam_pos"]
 current = true
+<<<<<<< HEAD
 zoom = Vector2( 0.8, 0.8 )
+=======
+>>>>>>> 36cc893c4c2aa8b658c008e2e8f198bcc2f7886c
 smoothing_enabled = true
 
 [node name="light" type="Light2D" parent="cam_pos/camera"]
